@@ -11,7 +11,22 @@ y que retorne un diccionario con el título y el autor del libro.
 """
 
 # Escribe tu código aquí
+
+def agregar_libro(titulo, autor):
+    return {
+        "titulo": titulo,
+        "autor": autor
+    }
+
 # Prueba la función con algunos valores
+
+libro1 = agregar_libro("Subida del monte Carmelo", "Juan de la Cruz")
+libro2 = agregar_libro("Suma teológica", "Tomás de Aquino")
+libro3 = agregar_libro("Confesiones", "Agustín de Hipona")
+
+print(libro1)
+print(libro2)
+print(libro3)
 
 
 """
@@ -21,7 +36,21 @@ que retorne una lista con los títulos de los libros.
 """
 
 # Escribe tu código aquí
+
+
+def listar_libros(libros):
+    return [libro["titulo"] for libro in libros]
+
 # Prueba la función con algunos valores
+
+libros = [
+    {"titulo": "Subida del monte Carmelo", "autor": "Juan de la Cruz"},
+    {"titulo": "Suma teológica", "autor": "Tomás de Aquino"},
+    {"titulo": "Confesiones", "autor": "Agustín de Hipona"},
+    {"titulo": "Summa contra gentiles", "autor": "Tomás de Aquino"}
+]
+
+print(listar_libros(libros))
 
 
 """
@@ -32,7 +61,16 @@ que retorne el diccionario del libro que coincida con el título, o `None` si no
 
 # Escribe tu código aquí
 
+def buscar_libro(libros, titulo):
+    for libro in libros:
+        if libro["titulo"] == titulo:
+            return libro
+    return None
+
 # Prueba la función con algunos valores
+
+print(buscar_libro(libros, "Suma teológica"))
+print(buscar_libro(libros, "Las moradas"))
 
 """
 --- Ejercicio 4: Manejo de Errores ---
@@ -42,7 +80,23 @@ que intente quitar el libro con el título especificado. Si no se encuentra el l
 
 # Escribe tu código aquí
 
+def quitar_libro(libros, titulo):
+    try:
+        for libro in libros:
+            if libro["titulo"] == titulo:
+                libros.remove(libro)
+                return libro
+        raise ValueError("El libro no se encuentra en la lista")
+    except ValueError as error:
+        print(error)
+        return None
+
 # Prueba la función con algunos valores
+
+print(quitar_libro(libros, "Confesiones"))
+print(libros)
+
+print(quitar_libro(libros, "Las moradas"))
 
 
 """
@@ -53,7 +107,23 @@ que retorne un diccionario con la cantidad de libros por autor.
 
 # Escribe tu código aquí
 
+def crear_inventario(libros):
+    inventario = {}
+
+    for libro in libros:
+        autor = libro["autor"]
+
+        if autor in inventario:
+            inventario[autor] += 1
+        else:
+            inventario[autor] = 1
+
+    return inventario
+
+
 # Prueba la función con algunos valores
+
+print(crear_inventario(libros))
 
 
 """
@@ -64,7 +134,19 @@ que retorne una lista con los títulos de los libros escritos por el autor espec
 
 # Escribe tu código aquí
 
+def libros_por_autor(libros, autor):
+    titulos = []
+
+    for libro in libros:
+        if libro["autor"] == autor:
+            titulos.append(libro["titulo"])
+
+    return titulos
+
 # Prueba la función con algunos valores
+
+print(libros_por_autor(libros, "Tomás de Aquino"))
+print(libros_por_autor(libros, "Juan de la Cruz"))
 
 """
 --- Ejercicio 7: Función que Retorna un Booleano ---
@@ -74,5 +156,15 @@ que retorne `True` si el libro existe en la lista, y `False` en caso contrario.
 
 # Escribe tu código aquí
 
+def existe_libro(libros, titulo):
+    for libro in libros:
+        if libro["titulo"] == titulo:
+            return True
+
+    return False
+
 # Prueba la función con algunos valores
+
+print(existe_libro(libros, "Suma teológica"))
+print(existe_libro(libros, "Las moradas"))
 
